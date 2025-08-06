@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="hzcu.hjj.pet.cpa.compdata.message.mapper.MessageMapper">
+  <!-- 以下为自定义方法 -->
+  <!-- login -->
+  <select id="getHistory" resultType="hzcu.hjj.pet.cpa.compdata.message.entity.Message">
+    select * from PET_ASSISTANCE_MESSAGE a
+    where (a.from_user_id = #{id1} and a.to_user_id = #{id2}) or (a.from_user_id = #{id2} and a.to_user_id = #{id1})
+    order by a.message_date
+  </select>
+    <!-- 已读所有消息 -->
+    <select id="updateHistory" resultType="hzcu.hjj.pet.cpa.compdata.message.entity.Message">
+        update PET_ASSISTANCE_MESSAGE set is_read = true
+        where (from_user_id = #{id1} and to_user_id = #{id2}) or (from_user_id = #{id2} and to_user_id = #{id1})
+    </select>
+    <select id="getMessageList" resultType="hzcu.hjj.pet.cpa.compdata.message.entity.MessageUserDto">
+      SELECT
+          ranked_messages.*,
+          u.user_photo_url,
+          u.user_app_name,
+          u.pet_assistance_user_id
+      FROM (
+               SELECT
+                   *,
+                   ROW_NUMBER() OVER (PARTITION BY otherUserId ORDER BY message_date DESC) AS row_num
+               FROM (
+                        SELECT
+                            CASE
+                                WHEN from_user_id = #{currentUserId} THEN to_user_id
+                                ELSE from_user_id
+                                END AS otherUserId,
+                            m1.*
+                        FROM
+                            pet_assistance_message m1
+                        WHERE
+                            from_user_id = #{currentUserId} OR to_user_id = #{currentUserId}
+                    ) AS subquery
+           ) AS ranked_messages
+               JOIN
+           pet_assistance_user u ON (
+                   (ranked_messages.from_user_id = u.pet_assistance_user_id AND ranked_messages.from_user_id != #{currentUserId})
+                   OR
+                   (ranked_messages.to_user_id = u.pet_assistance_user_id AND ranked_messages.to_user_id != #{currentUserId})
+               )
+      WHERE
+          row_num = 1
+      ORDER BY
+          message_date DESC;
+
+
+  </select>
+
+</mapper>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="hzcu.hjj.pet.cpa.compdata.comment.mapper.CommentMapper">
+  <!-- 以下为自定义方法 -->
+  <!-- 获取评论 -->
+  <select id="getCommentList" resultType="hzcu.hjj.pet.cpa.compdata.comment.entity.CommentDto">
+    select a.*, b.user_photo_url, b.user_app_name from PET_ASSISTANCE_COMMENT a join PET_ASSISTANCE_USER b on a.pet_assistance_user_id = b.pet_assistance_user_id
+    where pet_assistance_help_id = #{petAssistanceHelpId}
+  </select>
+</mapper>

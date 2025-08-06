@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="hzcu.hjj.pet.cpa.compdata.assistance.mapper.AssistanceMapper">
+  <!-- 根据地区推荐 -->
+  <select id="recommendByArea" parameterType="String" resultType="hzcu.hjj.pet.cpa.compdata.assistance.dto.UserUniteAssistanceDto">
+    select * from PET_ASSISTANCE_HELP a join PET_ASSISTANCE_USER b
+    on a.pet_assistance_user_id = b.pet_assistance_user_id where a.help_area = #{userArea}
+    and a.help_status = 1 and a.is_help = true
+    order by a.help_publish_time DESC
+  </select>
+
+  <select id="getAssistance" parameterType="String" resultType="hzcu.hjj.pet.cpa.compdata.assistance.dto.UserUniteAssistanceDto">
+    select * from PET_ASSISTANCE_HELP a join PET_ASSISTANCE_USER b
+    on a.pet_assistance_user_id = b.pet_assistance_user_id where a.pet_assistance_help_id = #{petAssistanceHelpId}
+  </select>
+
+  <select id="getCommunityAssistance" resultType="hzcu.hjj.pet.cpa.compdata.assistance.dto.UserUniteAssistanceDto">
+    select * from PET_ASSISTANCE_HELP a join PET_ASSISTANCE_USER b
+    on a.pet_assistance_user_id = b.pet_assistance_user_id
+    and a.is_help != true
+  </select>
+
+</mapper>

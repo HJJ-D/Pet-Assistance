@@ -1,0 +1,58 @@
+server:
+  port: 8081
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/pet-assistance
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    password: 123456
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    password: 123456
+    jedis:
+      pool:
+        max-active: 8
+        max-wait: -1
+        max-idle: 8
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+      write-date-timestamps-as-nanoseconds: true
+  servlet:
+    multipart:
+      max-file-size: 10MB        # 设置单个文件最大大小为10MB
+      max-request-size: 100MB    # 设置多个文件大小为100MB
+#Spring整合MP
+mybatis-plus:
+  #导入映射文件
+  mapper-locations: classpath:mapper/*.xml
+  #开启驼峰映射
+  configuration:
+    map-underscore-to-camel-case: true
+logging:
+  level:
+    com.city: debug
+file:
+  upload:
+    dir: C:\Users\hp\Desktop\graduation_design\pet-assistance\img
+    # dir: C:\Users\hp\Desktop\graduation_design\front\red-master\src\assets\uploadImg
+key:
+  private: MIIBVAIBADANBgkqhkiG9w0BAQEFAASCAT4wggE6AgEAAkEAmDW1HL294qh1tlYYg8QSkD4HEQeAA4UXRwD+DQjzWAxbeYtn/WDD3i0pQvAWcQgT474t2ahE558UuRgRoAoJTQIDAQABAkEAiK5589RDRt1lzxXjL7gLv3Gj4NvuTbrfG0i92jC2bNJRXvsWYH/QCrt2zhF/Fb3RVXtHKRU3cdDRlRU4vqNd4QIhAMlPijOl5FlguDdNLZV5kBT4fl0kqcE1KKf6CjaojA+FAiEAwY9euiuaSgl0OZ57DylpQN8ye/JAz11b0ZMckVOmaSkCIAOpVrIpykV15OPcm3+kfmJjQqkfCZdiCCNGAPmNhz6hAiBQ4hJZhYLx0UWKFlmiGlHrU9mKxc6jWIXX67uSVvxBEQIgT4ojDQ+FHT2XKQWGxtbaCO+L2MouIAQWPDM7KbnCyko=
+  public: MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAJg1tRy9veKodbZWGIPEEpA+BxEHgAOFF0cA/g0I81gMW3mLZ/1gw94tKULwFnEIE+O+LdmoROefFLkYEaAKCU0CAwEAAQ==
+jwt:
+  # 设置 Token 过期时间
+  expiration: 604800 # 7天
+  # 设置 JWT 的密钥
+  secret: hjj0723
+  # 设置记住密码的时间
+  remember-time: 1296000
+  # 设置小于某个时间, 自动更新 Token
+  validate-time: 300
+cloud:
+  SecretId: AKIDHPOFrERP8cswlKe4e4I4rhPuABxVuHUU
+  SecretKey: A9zg9NMBnB7A8ura9ZrxudEpEVbijZEp
+  url: https://image-1325624551.cos.ap-nanjing.myqcloud.com
+  region:  ap-nanjing
+  bucket: image-1325624551
+

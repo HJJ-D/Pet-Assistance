@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="hzcu.hjj.pet.cpa.compdata.like.mapper.LikeMapper">
+  <!-- 以下为自定义方法 -->
+  <!-- login -->
+  <select id="getLike" parameterType="hzcu.hjj.pet.cpa.compdata.like.entity.Like" resultType="hzcu.hjj.pet.cpa.compdata.like.entity.Like">
+    select * from PET_ASSISTANCE_LIKE a where a.pet_assistance_help_id = #{petAssistanceHelpId}
+    and a.pet_assistance_user_id = #{petAssistanceUserId}
+  </select>
+</mapper>

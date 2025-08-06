@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="hzcu.hjj.pet.cpa.compdata.user.mapper.UserMapper">
+  <!-- 以下为自定义方法 -->
+  <!-- login -->
+  <select id="login" parameterType="hzcu.hjj.pet.cpa.compdata.user.entity.User" resultType="hzcu.hjj.pet.cpa.compdata.user.entity.User">
+    select * from PET_ASSISTANCE_USER a
+    <trim prefix="where" prefixOverrides="AND|OR">
+        and a.user_phone_num = #{userPhoneNum} and a.user_pwd = #{userPwd}
+    </trim>
+  </select>
+</mapper>
